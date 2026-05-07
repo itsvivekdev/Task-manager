@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Noir Tasks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=Manrope:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.css"
+    integrity="sha512-kJlvECunwXftkPwyvHbclArO8wszgBGisiLeuDFwNM8ws+wKIw0sv1os3ClWZOcrEB2eRXULYUsm8OVRGJKwGA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="Noir.css" />
+</head>
+
+<body>
+
+  <div id="layout" class="layout">
+    <header>
+      <nav>
+        <div class="nav-left">
+          <div id="bars" class="bars">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+          <div class="searchbox">
+            <input id="searchbox" type="text" placeholder="Search your task..." />
+          </div>
+        </div>
+
+        <div class="nav-right">
+          <select name="filter" id="filter">
+            <option value="default">Default</option>
+            <option value="newestfirst">Newest first</option>
+            <option value="oldestfirst">Oldest first</option>
+            <option value="duedate">Due date ↑</option>
+            <option value="duedateDesc">Due date ↓</option>
+
+            <option value="A-Z">A → Z</option>
+            <option value="Z-A">Z → A</option>
+          </select>
+
+          <button id="createtask">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+            Add Task
+          </button>
+        </div>
+      </nav>
+    </header>
+    <div id="sidenav" class="sidenav">
+      <div class="sidenav-header">
+        <div class="logo-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <rect x="2" y="2" width="7" height="7" rx="1.5" fill="currentColor" opacity="0.9" />
+            <rect x="11" y="2" width="7" height="7" rx="1.5" fill="currentColor" opacity="0.5" />
+            <rect x="2" y="11" width="7" height="7" rx="1.5" fill="currentColor" opacity="0.5" />
+            <rect x="11" y="11" width="7" height="7" rx="1.5" fill="currentColor" />
+          </svg>
+        </div>
+        <span class="logo-text">TaskFlow</span>
+      </div>
+
+      <hr class="hr">
+      <div class="side-nav-filters">
+        <div id="Alltask" class="task-status">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <rect x="1" y="1" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5" />
+            <rect x="9" y="1" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5" />
+            <rect x="1" y="9" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5" />
+            <rect x="9" y="9" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5" />
+          </svg>
+          All Tasks
+          <span class="nav-count" id="count-all">0</span>
+
+        </div>
+        <div id="pendingtask" class="task-status">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.5" />
+            <path d="M8 5v3.5l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+          </svg>
+
+          Pending
+          <span class="nav-count" id="count-pending">0</span>
+
+        </div>
+        <div id="completedtask" class="task-status">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.5" />
+            <path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+
+          Completed
+          <span class="nav-count" id="count-completed">0</span>
+
+        </div>
+
+
+
+
+
+
+      </div>
+      <hr class="hr">
+      <div class="filter-Priority">
+        <p>Priority</p>
+        <div id="high-priority" class="priority-status">
+          <span class="priority-dot priority-dot--high"></span>
+          High Priority
+        </div>
+        <div id="medium-priority" class="priority-status">
+          <span class="priority-dot priority-dot--medium"></span>
+          Medium Priority
+        </div>
+        <div id="low-priority" class="priority-status">
+          <span class="priority-dot priority-dot--low"></span>
+          Low Priority
+        </div>
+
+      </div>
+      <hr class="hr">
+    </div>
+
+    <main>
+      <div class="taskbar">
+        <h3 id="header-text">All Tasks</h3>
+        <div class="task-actions">
+          <button id="task-counter" class="task-counter">0 Tasks</button>
+          <button class="deleteall" id="deleteall">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M2 3.5h10M5.5 3.5V2.5h3v1M5.5 6v4M8.5 6v4M3 3.5l.7 8h6.6l.7-8" stroke="currentColor"
+                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            Delete All
+          </button>
+        </div>
+      </div>
+
+      <div id="tasklist" class="task-list"></div>
+    </main>
+
+    <div class="overlay" id="body-overlay"></div>
+
+    <div id="container" class="modal">
+      <div class="modal-header">
+        <h3>Add New Task</h3>
+      </div>
+
+      <div class="modal-body">
+        <div class="field">
+          <label for="tasktitle">Task Title</label>
+          <input id="tasktitle" type="text" placeholder="What needs to be done?" required />
+        </div>
+
+        <div class="field">
+          <label for="description">Description [Optional]</label>
+          <textarea name="" placeholder="Add any extra details..." id="description"></textarea>
+
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="dateinput">Due Date</label>
+            <input id="dateinput" type="date" />
+          </div>
+          <div class="field">
+            <label for="priority">Priority</label>
+            <select id="priority">
+              <option value="default">Default</option>
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="taginput">Tags [Optional]</label>
+          <input id="taginput" type="text" placeholder="Work, urgent, personal..." />
+        </div>
+      </div>
+      <p id="msg"></p>
+
+      <div class="modal-footer">
+        <button id="cancel" class="btn-secondary">Cancel</button>
+        <button id="addtask" class="btn-primary">Add Task</button>
+      </div>
+    </div>
+  </div>
+
+
+  <p class="toast" id="toast"></p>
+
+  <div id="Notask-Model" class="NoTask-Model">
+    <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+      <rect x="8" y="12" width="40" height="36" rx="4" stroke="currentColor" stroke-width="2" opacity="0.3" />
+      <path d="M18 24h20M18 32h12" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.3" />
+      <circle cx="40" cy="40" r="10" fill="var(--accent)" opacity="0.15" />
+      <path d="M36 40h8M40 36v8" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" />
+    </svg>
+    <h3 id="empty-title" class="title">No tasks yet</h3>
+    <p id="empty-subtitle" class="sub-title">Add your first task to get started.</p>
+    <button id="no-taskbtn">Add your first task</button>
+
+  </div>
+
+
+
+
+  <script src="Noir.js"></script>
+</body>
+
+</html>
