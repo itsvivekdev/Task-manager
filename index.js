@@ -43,6 +43,11 @@ function closeModal() {
  addTaskBtn.textContent='Add Task'
 
 }
+modal.addEventListener('keydown',(e)=>{
+  if(e.key==='Enter'){
+    addTask()
+  }
+})
 function addTask() {
   if(!titleInput.value){
     ShowErr("Task title is required!")
@@ -194,7 +199,7 @@ function renderTasks(data = tasks) {
               </div>
             </div>
             <div class="task-btns">
-              <button onClick='EditTask(${task.id})'> <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+  ${task.completed?`<button disabled> <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">`: ` <button onClick='EditTask(${task.id})'> <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">`} 
               <path d="M9.5 2l2.5 2.5L4.5 12H2v-2.5L9.5 2z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
             </svg></button>
               <button onclick="removeTask(${task.id})">
@@ -296,6 +301,7 @@ function updateCounter() {
   taskcounter.innerText = `${all} Tasks`;
 
 }
+
 function updateEmptyState(tasks,titleText,subtitleText){
   let title = document.getElementById('empty-title');
   let subtitle = document.getElementById('empty-subtitle');
